@@ -11,6 +11,8 @@ CROSS_COMPILE = arm-none-eabi-
 INC =  -I.
 INC += -I$(PY_SRC)
 INC += -I$(BUILD)
+INC += -Ihal
+INC += -I../stmhal
 
 CFLAGS_CORTEX_M4 = -mthumb -mtune=cortex-m4 -mcpu=cortex-m4 -msoft-float -mfloat-abi=soft -fsingle-precision-constant -Wdouble-promotion
 CFLAGS = $(INC) -Wall -Werror -ansi -std=gnu99 -nostdlib $(CFLAGS_CORTEX_M4) $(COPT)
@@ -37,9 +39,11 @@ LDFLAGS += -Wl,--gc-sections
 
 SRC_C = \
 	main.c \
+	pin_defs_cc3200.c \
+	hal/gccollect.c \
+	hal/cc3200_hal.c 
 
 STM_SRC_C = $(addprefix stmhal/,\
-	gccollect.c \
 	input.c \
 	irq.c \
 	pin.c \

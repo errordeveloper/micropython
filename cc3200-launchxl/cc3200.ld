@@ -36,7 +36,8 @@
 *
 ******************************************************************************/
 
-HEAP_SIZE = 0x00008000;
+MINIMUM_HEAP_SIZE  = 16K;
+MINIMUM_STACK_SIZE = 2K;
 
 MEMORY
 {
@@ -79,13 +80,22 @@ SECTIONS
         *(COMMON)
         _ebss = .;
     } > SRAM
-
+  
+    /* This is to define the start of the heap, and make sure we have a minimum size */
     .heap :
     {
-    _heap = .;
-    . = . + HEAP_SIZE;
-    . = ALIGN(8);
-    _eheap = .;
+        . = ALIGN(8);
+    PROVIDE ( end = . );
+    PROVIDE ( _end = . );
+        _heap_start = .;    /* define a global symbol at heap start */
+        . = . + MINIMUM_HEAP_SIZE;
+    } > SRAM
 
-    }
+    /* This just checks there is enough RAM for the stack */
+    .stack :
+    {
+        . = ALIGN(4);
+        . = . + MINIMUM_STACK_SIZE;
+        . = ALIGN(4);
+    } > SRAM
 }

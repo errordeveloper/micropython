@@ -108,3 +108,6 @@ __attribute__(( always_inline )) static inline mp_uint_t disable_irq(void) {
 
 #define MICROPY_HW_BOARD_NAME       "CC3200-LAUNCHXL"
 #define MICROPY_HW_MCU_NAME         "CC3200"
+
+#define MICROPY_HAL_H               "cc3200_hal.h"
+#define MICROPY_PIN_DEFS_PORT_H     "pin_defs_cc3200.h"
