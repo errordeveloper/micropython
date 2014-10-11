@@ -41,8 +41,18 @@ MINIMUM_STACK_SIZE = 2K;
 
 MEMORY
 {
-    SRAM (rwx) : ORIGIN = 0x20004000, LENGTH = 0x00030000
+    SRAMB (rwx) : ORIGIN = 0x20000000, LENGTH = 0x00004000
+    SRAM  (rwx) : ORIGIN = 0x20004000, LENGTH = 0x0003C000
 }
+
+/* Define tho top end of the stack.  The stack is full descending so begins just
+   above last byte of RAM.  Note that EABI requires the stack to be 8-byte
+   aligned for a call. */
+_estack = ORIGIN(SRAM) + LENGTH(SRAM);
+
+/* RAM extents for the garbage collector */
+_ram_end = ORIGIN(SRAM) + LENGTH(SRAM);
+_heap_end = _ram_end - (2 * MINIMUM_STACK_SIZE);
 
 SECTIONS
 {
@@ -64,6 +74,9 @@ SECTIONS
     } > SRAM
 
     __init_data = .;
+    
+    /* used by the startup to initialize data */
+    _sidata = LOADADDR(.data);
 
     .data : AT(__init_data)
     {
@@ -84,6 +97,7 @@ SECTIONS
     /* This is to define the start of the heap, and make sure we have a minimum size */
     .heap :
     {
+        _heap = .;
         . = ALIGN(8);
     PROVIDE ( end = . );
     PROVIDE ( _end = . );
@@ -94,8 +108,14 @@ SECTIONS
     /* This just checks there is enough RAM for the stack */
     .stack :
     {
+        _stack = .;
         . = ALIGN(4);
         . = . + MINIMUM_STACK_SIZE;
         . = ALIGN(4);
     } > SRAM
+    
+    /* Define some alias symbols needed by Micro Python */
+    _ram_start = _data;
+    _sdata = _data;
+    _sbss = _bss;
 }

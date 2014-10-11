@@ -24,21 +24,5 @@
  * THE SOFTWARE.
  */
 
-
-#include <stdio.h>
-#include <stdint.h>
-
-#include "mpconfig.h"
-
-#include MICROPY_HAL_H
-
-
-uint32_t HAL_GetTick(void)
-{
-  return 0;
-}
-
-void HAL_Delay(uint32_t Delay)
-{
-
-}
+void pyb_buf_get_for_send(mp_obj_t o, mp_buffer_info_t *bufinfo, byte *tmp_data);
+mp_obj_t pyb_buf_get_for_recv(mp_obj_t o, mp_buffer_info_t *bufinfo);

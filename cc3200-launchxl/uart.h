@@ -1,9 +1,9 @@
 /*
- * This file is part of the CC3200-LAUNCHXL port of the Micro Python project
+ * This file is part of the Micro Python project, http://micropython.org/
  *
  * The MIT License (MIT)
  *
- * Copyright (c) 2014 Daniel Campora
+ * Copyright (c) 2013, 2014 Damien P. George
  *
  * Permission is hereby granted, free of charge, to any person obtaining a copy
  * of this software and associated documentation files (the "Software"), to deal
@@ -23,59 +23,20 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
  * THE SOFTWARE.
  */
-#ifndef CC3200_LAUNCHXL_PIN_DEFS_CC3200_H_
-#define CC3200_LAUNCHXL_PIN_DEFS_CC3200_H_
 
+typedef enum {
+    PYB_UART_NONE = 0,
+    PYB_UART_1 = 1,
+    PYB_UART_2 = 2
 
-enum {
-  PORT_A,
-  PORT_B,
-  PORT_C,
-  PORT_D,
-  PORT_E,
-  PORT_Z,
-};
+} pyb_uart_t;
 
-enum {
-    AF_FN_FTM,
-    AF_FN_I2C,
-    AF_FN_UART,
-    AF_FN_SPI
-};
+typedef struct _pyb_uart_obj_t pyb_uart_obj_t;
+extern const mp_obj_type_t pyb_uart_type;
 
-enum {
-    AF_PIN_TYPE_FTM_CH0 = 0,
-    AF_PIN_TYPE_FTM_CH1,
-    AF_PIN_TYPE_FTM_CH2,
-    AF_PIN_TYPE_FTM_CH3,
-    AF_PIN_TYPE_FTM_CH4,
-    AF_PIN_TYPE_FTM_CH5,
-    AF_PIN_TYPE_FTM_CH6,
-    AF_PIN_TYPE_FTM_CH7,
-    AF_PIN_TYPE_FTM_QD_PHA,
-    AF_PIN_TYPE_FTM_QD_PHB,
+bool uart_init(pyb_uart_obj_t *uart_obj, uint32_t baudrate);
+bool uart_rx_any(pyb_uart_obj_t *uart_obj);
+int uart_rx_char(pyb_uart_obj_t *uart_obj);
+void uart_tx_strn(pyb_uart_obj_t *uart_obj, const char *str, uint len);
+void uart_tx_strn_cooked(pyb_uart_obj_t *uart_obj, const char *str, uint len);
 
-    AF_PIN_TYPE_I2C_SDA = 0,
-    AF_PIN_TYPE_I2C_SCL,
-
-    AF_PIN_TYPE_SPI_MOSI = 0,
-    AF_PIN_TYPE_SPI_MISO,
-    AF_PIN_TYPE_SPI_SCK,
-    AF_PIN_TYPE_SPI_NSS,
-
-    AF_PIN_TYPE_UART_TX = 0,
-    AF_PIN_TYPE_UART_RX,
-    AF_PIN_TYPE_UART_CTS,
-    AF_PIN_TYPE_UART_RTS,
-};
-
-#define PIN_DEFS_PORT_AF_UNION \
-    I2C_TypeDef   *I2C; \
-    UART_TypeDef  *UART; \
-    SPI_TypeDef   *SPI;
-
-typedef GPIO_TypeDef pin_gpio_t;
-
-
-
-#endif /* CC3200_LAUNCHXL_PIN_DEFS_CC3200_H_ */

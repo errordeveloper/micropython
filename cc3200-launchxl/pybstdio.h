@@ -24,21 +24,9 @@
  * THE SOFTWARE.
  */
 
+extern pyb_uart_obj_t *pyb_stdio_uart;
 
-#include <stdio.h>
-#include <stdint.h>
-
-#include "mpconfig.h"
-
-#include MICROPY_HAL_H
-
-
-uint32_t HAL_GetTick(void)
-{
-  return 0;
-}
-
-void HAL_Delay(uint32_t Delay)
-{
-
-}
+void stdout_tx_str(const char *str);
+void stdout_tx_strn(const char *str, mp_uint_t len);
+void stdout_tx_strn_cooked(const char *str, mp_uint_t len);
+int stdin_rx_chr(void);

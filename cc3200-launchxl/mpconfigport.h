@@ -109,5 +109,21 @@ __attribute__(( always_inline )) static inline mp_uint_t disable_irq(void) {
 #define MICROPY_HW_BOARD_NAME       "CC3200-LAUNCHXL"
 #define MICROPY_HW_MCU_NAME         "CC3200"
 
+#define MICROPY_HW_HAS_SWITCH       (0)
+#define MICROPY_HW_HAS_SDCARD       (0)
+#define MICROPY_HW_HAS_MMA7660      (0)
+#define MICROPY_HW_HAS_LIS3DSH      (0)
+#define MICROPY_HW_HAS_LCD          (0)
+#define MICROPY_HW_ENABLE_RNG       (0)
+#define MICROPY_HW_ENABLE_RTC       (0)
+#define MICROPY_HW_ENABLE_TIMER     (0)
+#define MICROPY_HW_ENABLE_SERVO     (0)
+#define MICROPY_HW_ENABLE_DAC       (0)
+#define MICROPY_HW_ENABLE_I2C1      (0)
+#define MICROPY_HW_ENABLE_SPI1      (0)
+#define MICROPY_HW_ENABLE_SPI3      (0)
+#define MICROPY_HW_ENABLE_CC3K      (0)
+
+#define MICROPY_MATH_SQRT_ASM       (1)
+
 #define MICROPY_HAL_H               "cc3200_hal.h"
-#define MICROPY_PIN_DEFS_PORT_H     "pin_defs_cc3200.h"

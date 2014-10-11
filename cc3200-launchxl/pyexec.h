@@ -24,21 +24,15 @@
  * THE SOFTWARE.
  */
 
+typedef enum {
+    PYEXEC_MODE_RAW_REPL,
+    PYEXEC_MODE_FRIENDLY_REPL,
+} pyexec_mode_kind_t;
 
-#include <stdio.h>
-#include <stdint.h>
+extern pyexec_mode_kind_t pyexec_mode_kind;
 
-#include "mpconfig.h"
+int pyexec_raw_repl(void);
+int pyexec_friendly_repl(void);
+bool pyexec_file(const char *filename);
 
-#include MICROPY_HAL_H
-
-
-uint32_t HAL_GetTick(void)
-{
-  return 0;
-}
-
-void HAL_Delay(uint32_t Delay)
-{
-
-}
+MP_DECLARE_CONST_FUN_OBJ(pyb_set_repl_info_obj);

@@ -1,5 +1,4 @@
 // qstrs specific to this port
-
 Q(help)
 Q(pyb)
 Q(info)
@@ -47,8 +46,6 @@ Q(repl_info)
 Q(wfi)
 Q(disable_irq)
 Q(enable_irq)
-Q(usb_mode)
-Q(have_cdc)
 Q(millis)
 Q(micros)
 Q(elapsed_millis)
@@ -139,4 +136,4 @@ Q(all)
 Q(send)
 Q(recv)
 Q(timeout)
-
+Q(repl_uart)

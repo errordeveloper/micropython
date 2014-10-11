@@ -24,21 +24,6 @@
  * THE SOFTWARE.
  */
 
-
-#include <stdio.h>
-#include <stdint.h>
-
-#include "mpconfig.h"
-
-#include MICROPY_HAL_H
-
-
-uint32_t HAL_GetTick(void)
-{
-  return 0;
-}
-
-void HAL_Delay(uint32_t Delay)
-{
-
-}
+void sys_tick_wait_at_least(uint32_t stc, uint32_t delay_ms);
+bool sys_tick_has_passed(uint32_t stc, uint32_t delay_ms);
+uint32_t sys_tick_get_microseconds(void);
