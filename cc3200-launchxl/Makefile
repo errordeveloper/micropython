@@ -19,16 +19,7 @@ CFLAGS = $(INC) -Wall -Werror -ansi -std=gnu99 -nostdlib $(CFLAGS_CORTEX_M4) $(C
 
 CFLAGS += -Os -DNDEBUG -ffunction-sections -fdata-sections
 
-LDFLAGS = -nostartfiles --gc-sections -static -nostdlib -T cc3200.lds -Map=$@.map --cref
-
-LIBGCC_FILE_NAME = $(shell $(CC) $(CFLAGS) -print-libgcc-file-name)
-LIBM_FILE_NAME   = $(shell $(CC) $(CFLAGS) -print-file-name=libm.a)
-LIBC_FILE_NAME   = $(shell $(CC) $(CFLAGS) -print-file-name=libc.a)
-
-
-LIBS += -L $(dir $(LIBM_FILE_NAME)) -lm
-LIBS += -L $(dir $(LIBC_FILE_NAME)) -lc
-LIBS += -L $(dir $(LIBGCC_FILE_NAME)) -lgcc
+LDFLAGS = -Wl,-nostdlib  -Wl,--gc-sections -T cc3200.lds -Wl,-Map=$@.map --specs=nano.specs
 
 SRC_C = \
 	main.c \
@@ -65,7 +56,7 @@ all: $(BUILD)/firmware.elf
 
 $(BUILD)/firmware.elf: $(OBJ)
 	$(ECHO) "LINK $@"
-	$(Q)$(LD) $(LDFLAGS) -o $@ $(OBJ) $(LIBS)
+	$(Q)$(CC) -o $@ $(LDFLAGS) $(OBJ) $(LIBS)
 	$(Q)$(SIZE) $@
 
 include ../py/mkrules.mk
